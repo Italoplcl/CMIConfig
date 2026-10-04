@@ -1,52 +1,29 @@
 # CMIConfigDialogs
 
-Panel administrativo para editar configuraciones de **CMI** mediante los Dialogs nativos de Minecraft/CMI.
-
-## Estado
-
-Primera versión de prueba basada en la instalación analizada:
-
-- CMI `9.8.10.3`
-- CMILib `1.6.0.1`
-- Java 21
-- Paper/Purpur compatible mediante Paper API
-
-Esta versión implementa únicamente lo que ya se revisó para validar el enfoque antes de ampliar el proyecto.
-
-## Incluido ahora
-
-- `/cmiconfig` abre el Dialog principal.
-- Genera `plugins/CMI/Dialogs/CMIConfigDialogs.yml`.
-- Editor de `customMessages`:
-  - Login: Disabled, AutoHideFrom, Custom.Use, Custom.ServerSwitch.
-  - Logout: Disabled, AutoHideFrom, Custom.Use, Custom.ServerSwitch.
-  - Filtro: ForLogin y ForLogout.
-  - DeathMessages: EnableCustom, AutoHideFrom, Range, Destination y AntiSpam.
-- Editor de los módulos que ya fueron decididos explícitamente.
-- Backups automáticos antes de modificar YAML.
-- Escritura puntual de valores sin reserializar el YAML completo, para conservar comentarios y estructura de CMI.
-- Lista blanca interna: los botones no pueden escribir rutas arbitrarias.
-
-## Instalación
-
-1. Compila el proyecto con GitHub Actions o `gradle build`.
-2. Copia el JAR de `build/libs/` a `plugins/`.
-3. Deben estar instalados CMI y CMILib.
-4. Inicia el servidor.
-5. CMIConfigDialogs creará `plugins/CMI/Dialogs/CMIConfigDialogs.yml`.
-6. Haz que CMI relea sus Dialogs/configuración si es necesario.
-7. Ejecuta `/cmiconfig` como OP o con `cmiconfig.admin`.
-
-## Seguridad
-
-Los archivos originales se respaldan en una carpeta `CMIConfigDialogs-backups` junto al archivo modificado. El editor solo permite rutas expresamente incluidas en el código.
+Plugin propio para Paper 26.x que abre dialogs mediante la **Dialog API de Paper** y edita archivos de configuración de CMI.
 
 ## Importante
 
-Los cambios de `Settings/Modules.yml` requieren reinicio completo del servidor, según el propio archivo de CMI.
+- `/cmiconfig` pertenece a este plugin.
+- No ejecuta `/cmi dialogs`.
+- No crea dialogs dentro de `plugins/CMI/Dialogs`.
+- CMI y CMILib son el software/configuración administrados, no el motor de la interfaz.
 
-Esta versión no edita todavía listas YAML como `Messages.Filter.Regex`, `DisabledWorlds`, `MutedWorlds` o `IgnoredPlayers`. No se eliminaron del diseño por considerarlas innecesarias: requieren un editor de listas que todavía debe definirse.
+## Estado 0.2.0
 
-## Compilación en GitHub
+Implementado únicamente sobre decisiones ya revisadas:
 
-El workflow `.github/workflows/build.yml` compila automáticamente y publica el JAR como artifact de GitHub Actions.
+- Menú principal.
+- `customMessages` (si está activo): Login, Logout y Filter de `CMI/config.yml`.
+- Editor de los módulos ya revisados con el usuario.
+- `firstJoinMessages` se mantiene separado y todavía no tiene editor propio.
+- `deathMessages` NO está dentro de customMessages: CMI lo declara como módulo independiente y todavía no se ha decidido su inclusión.
+- Backups automáticos antes de guardar.
+
+## Compilar
+
+Sube el proyecto a GitHub. El workflow `.github/workflows/build.yml` compila con Java 25 y Paper 26.2 API. El JAR queda como artifact de GitHub Actions.
+
+## Permiso
+
+`cmiconfig.admin` (OP por defecto)
