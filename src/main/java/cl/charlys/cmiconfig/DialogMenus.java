@@ -58,11 +58,11 @@ public final class DialogMenus {
         boolean serverSwitch = files.getConfigBoolean("Messages.Login.Custom.ServerSwitch", true);
 
         List<DialogInput> inputs = List.of(
-            DialogInput.bool("show", Component.text("Mostrar mensajes de entrada"), show).build(),
+            DialogInput.bool("show", Component.text("Mostrar mensajes de entrada"), show, "true", "false"),
             DialogInput.text("autohide", Component.text("Ocultar desde esta cantidad de jugadores"))
                 .initial(String.valueOf(autoHide)).width(200).build(),
-            DialogInput.bool("custom", Component.text("Usar mensaje personalizado"), custom).build(),
-            DialogInput.bool("serverswitch", Component.text("Detectar cambio entre servidores"), serverSwitch).build()
+            DialogInput.bool("custom", Component.text("Usar mensaje personalizado"), custom, "true", "false"),
+            DialogInput.bool("serverswitch", Component.text("Detectar cambio entre servidores"), serverSwitch, "true", "false")
         );
         showSaveBack(player, "Mensajes de entrada", inputs, (view, p) -> {
             Integer value = parseInt(view.getText("autohide"));
@@ -84,10 +84,10 @@ public final class DialogMenus {
         boolean custom = files.getConfigBoolean("Messages.Logout.Custom.Use", false);
         boolean serverSwitch = files.getConfigBoolean("Messages.Logout.Custom.ServerSwitch", true);
         List<DialogInput> inputs = List.of(
-            DialogInput.bool("show", Component.text("Mostrar mensajes de salida"), show).build(),
+            DialogInput.bool("show", Component.text("Mostrar mensajes de salida"), show, "true", "false"),
             DialogInput.text("autohide", Component.text("Ocultar desde esta cantidad de jugadores")).initial(String.valueOf(autoHide)).width(200).build(),
-            DialogInput.bool("custom", Component.text("Usar mensaje personalizado"), custom).build(),
-            DialogInput.bool("serverswitch", Component.text("Detectar cambio entre servidores"), serverSwitch).build()
+            DialogInput.bool("custom", Component.text("Usar mensaje personalizado"), custom, "true", "false"),
+            DialogInput.bool("serverswitch", Component.text("Detectar cambio entre servidores"), serverSwitch, "true", "false")
         );
         showSaveBack(player, "Mensajes de salida", inputs, (view, p) -> {
             Integer value = parseInt(view.getText("autohide"));
@@ -108,8 +108,8 @@ public final class DialogMenus {
         boolean logout = files.getConfigBoolean("Messages.Filter.ForLogout", false);
         String regex = String.join("\n", files.getConfigStringList("Messages.Filter.Regex"));
         List<DialogInput> inputs = List.of(
-            DialogInput.bool("login", Component.text("Aplicar filtro al Login"), login).build(),
-            DialogInput.bool("logout", Component.text("Aplicar filtro al Logout"), logout).build(),
+            DialogInput.bool("login", Component.text("Aplicar filtro al Login"), login, "true", "false"),
+            DialogInput.bool("logout", Component.text("Aplicar filtro al Logout"), logout, "true", "false"),
             DialogInput.text("regex", Component.text("Regex (una expresion por linea)"))
                 .initial(regex).width(400).maxLength(8192).multiline(TextDialogInput.MultilineOptions.create(120, 240)).build()
         );
@@ -149,7 +149,7 @@ public final class DialogMenus {
     }
 
     private DialogInput module(String key, boolean fallback) {
-        return DialogInput.bool(key, Component.text(key), files.getModule(key, fallback)).build();
+        return DialogInput.bool(key, Component.text(key), files.getModule(key, fallback), "true", "false");
     }
 
     private void showSaveBack(Player player, String title, List<DialogInput> inputs, SaveHandler save, java.util.function.Consumer<Player> back) {
