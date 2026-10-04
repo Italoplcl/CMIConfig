@@ -3,8 +3,9 @@ package cl.charlys.cmiconfig;
 import io.papermc.paper.dialog.Dialog;
 import io.papermc.paper.registry.data.dialog.ActionButton;
 import io.papermc.paper.registry.data.dialog.DialogBase;
-import io.papermc.paper.registry.data.dialog.DialogInput;
-import io.papermc.paper.registry.data.dialog.DialogType;
+import io.papermc.paper.registry.data.dialog.input.DialogInput;
+import io.papermc.paper.registry.data.dialog.input.TextDialogInput;
+import io.papermc.paper.registry.data.dialog.type.DialogType;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickCallback;
 import org.bukkit.entity.Player;
@@ -110,7 +111,7 @@ public final class DialogMenus {
             DialogInput.bool("login", Component.text("Aplicar filtro al Login"), login).build(),
             DialogInput.bool("logout", Component.text("Aplicar filtro al Logout"), logout).build(),
             DialogInput.text("regex", Component.text("Regex (una expresion por linea)"))
-                .initial(regex).width(400).maxLength(8192).multiline(120, 240).build()
+                .initial(regex).width(400).maxLength(8192).multiline(TextDialogInput.MultilineOptions.create(120, 240)).build()
         );
         showSaveBack(player, "Filtro de nombres", inputs, (view, p) -> {
             List<String> values = view.getText("regex").lines().filter(s -> !s.isBlank()).toList();
