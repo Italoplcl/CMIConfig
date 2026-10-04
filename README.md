@@ -1,28 +1,29 @@
 # CMIConfigDialogs
 
-Plugin propio para Paper 26.x que abre dialogs mediante la **Dialog API de Paper** y edita archivos de configuración de CMI.
+Plugin propio para Paper 26.x que abre dialogs mediante la Dialog API de Paper y permite navegar y editar las configuraciones YAML instaladas de CMI y CMILib.
 
-## Importante
+## Funcionamiento
 
 - `/cmiconfig` pertenece a este plugin.
 - No ejecuta `/cmi dialogs`.
 - No crea dialogs dentro de `plugins/CMI/Dialogs`.
-- CMI y CMILib son el software/configuración administrados, no el motor de la interfaz.
+- CMI y CMILib son los archivos administrados; CMI no controla la interfaz.
+- El editor descubre los archivos `.yml`/`.yaml` existentes dentro de `plugins/CMI` y `plugins/CMILib`.
+- Las secciones YAML se navegan como submenus.
+- Los booleanos se editan como opciones booleanas.
+- Numeros, textos y listas conservan su tipo al guardarse.
+- Las listas complejas se editan como YAML, incluyendo listas con mapas anidados.
+- Los archivos y secciones extensos se paginan.
+- El area Mensajes incluye acceso a `Messages` de `config.yml`, `Settings/DeathMessages.yml` y `Translations/DeathMessages`.
+- Antes de guardar se crea una copia de respaldo en `plugins/CMIConfigDialogs/backups`.
 
-## Estado 0.2.0
+## Archivos cubiertos
 
-Implementado únicamente sobre decisiones ya revisadas:
-
-- Menú principal.
-- `customMessages` (si está activo): Login, Logout y Filter de `CMI/config.yml`.
-- Editor de los módulos ya revisados con el usuario.
-- `firstJoinMessages` se mantiene separado y todavía no tiene editor propio.
-- `deathMessages` NO está dentro de customMessages: CMI lo declara como módulo independiente y todavía no se ha decidido su inclusión.
-- Backups automáticos antes de guardar.
+El plugin no mantiene una lista cerrada de opciones: recorre los YAML que realmente existen en la instalacion. Por ello cubre `CMI/config.yml`, todos los YAML de `CMI/Settings`, `CMI/Saves`, `CMI/Translations`, `CMI/CustomAlias`, `CMI/Kits`, `CMI/Dialogs` y cualquier otro YAML dentro de CMI; hace lo mismo con CMILib.
 
 ## Compilar
 
-Sube el proyecto a GitHub. El workflow `.github/workflows/build.yml` compila con Java 25 y Paper 26.2 API. El JAR queda como artifact de GitHub Actions.
+El workflow `.github/workflows/build.yml` compila con Java 25 y Paper 26.2 API. El JAR queda como artifact de GitHub Actions.
 
 ## Permiso
 

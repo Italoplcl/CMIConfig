@@ -1,0 +1,16 @@
+name: CMIConfigDialogs
+version: '0.2.0'
+main: cl.charlys.cmiconfig.CMIConfigDialogsPlugin
+api-version: '26.2'
+author: Italo
+description: Editor visual mediante Dialog API para configuraciones de CMI.
+softdepend: [CMI, CMILib]
+commands:
+  cmiconfig:
+    description: Abre el editor visual de CMI.
+    usage: /cmiconfig
+    permission: cmiconfig.admin
+permissions:
+  cmiconfig.admin:
+    description: Permite usar el editor de CMI.
+    default: op
